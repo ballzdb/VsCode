@@ -70,10 +70,17 @@ def calculate_statistics():
     else:
         stats[name]["losses"] += 1
         print(f"GG. {name} loss added.")
-
+        
+    with open("stats.json", "w") as f:
+        json.dump(stats, f, indent=4)
 
 
 if __name__ == "__main__":
+    try:
+        with open("stats.json", "r") as f:
+            stats = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        stats = {}
     while True:
         try:
             calculate_statistics()
