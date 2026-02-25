@@ -1,6 +1,6 @@
 {
     "Hibana": {
-        "wins": 2,
+        "wins": 3,
         "losses": 0
     },
     "Fuze": {
@@ -9,6 +9,14 @@
     },
     "Ash": {
         "wins": 1,
+        "losses": 0
+    },
+    "Kaid": {
+        "wins": 1,
+        "losses": 0
+    },
+    "Caveira": {
+        "wins": 3,
         "losses": 0
     }
 }

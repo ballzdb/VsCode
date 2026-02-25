@@ -54,6 +54,20 @@ def win_or_lose() -> bool:
             continue
         break 
 
+def display_statistics():
+    if not stats:
+        print("No statistics available.")
+        return
+    
+    print("Operator Statistics:")
+    for operator in sorted(stats.keys()):
+        record = stats[operator]
+        wins = record.get("wins", 0)
+        losses = record.get("losses", 0)
+        total = wins + losses
+        win_rate = (wins / total) * 100 if total > 0 else 0
+        print(f"{operator}: {wins} Wins, {losses} Losses, Win Rate: {win_rate:.2f}%")
+
 
 def calculate_statistics(): 
     now_opp = get_operator_of_this_round()
@@ -86,3 +100,12 @@ if __name__ == "__main__":
             calculate_statistics()
         except ValueError as e:
             print(e)
+        except KeyboardInterrupt:
+            display_statistics()
+            print("Exiting program. Goodbye!")
+            exit()
+
+
+
+
+
