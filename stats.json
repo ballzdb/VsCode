@@ -1,6 +1,6 @@
 {
     "Hibana": {
-        "wins": 3,
+        "wins": 7,
         "losses": 0
     },
     "Fuze": {
@@ -8,8 +8,10 @@
         "losses": 0
     },
     "Ash": {
-        "wins": 1,
-        "losses": 0
+        "wins": 3,
+        "losses": 4,
+        "kills": 13,
+        "deaths": 3
     },
     "Kaid": {
         "wins": 1,
@@ -18,5 +20,9 @@
     "Caveira": {
         "wins": 3,
         "losses": 0
+    },
+    "Alibi": {
+        "wins": 4,
+        "losses": 5
     }
 }
