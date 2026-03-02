@@ -28,19 +28,19 @@ class Defender(Operator):
     def __init__(self, name):
         super().__init__(name, Defender.all_names)
 
+# Pre-build lowercase maps for efficient lookups
+_ATTACKERS_LOWER = {name.lower(): name for name in Attacker.all_names}
+_DEFENDERS_LOWER = {name.lower(): name for name in Defender.all_names}
 
 def get_operator_of_this_round():
     operator_input = input("Operator you used this round was: ").strip()
+    operator_input_lower = operator_input.lower()
     
-    # Check Attackers
-    for name in Attacker.all_names:
-        if name.lower() == operator_input.lower():
-            return Attacker(name)
-            
-    # Check Defenders 
-    for name in Defender.all_names:
-        if name.lower() == operator_input.lower():
-            return Defender(name)
+    if operator_input_lower in _ATTACKERS_LOWER:
+        return Attacker(_ATTACKERS_LOWER[operator_input_lower])
+    
+    if operator_input_lower in _DEFENDERS_LOWER:
+        return Defender(_DEFENDERS_LOWER[operator_input_lower])
 
     raise ValueError(f"'{operator_input}' is not a valid operator.")
     
@@ -110,8 +110,10 @@ def calculate_statistics(): # calculates the statistics for the current round an
     KD = stats[name]["kills"] / stats[name]["deaths"] if stats[name]["deaths"] > 0 else float(stats[name]["kills"])
     print(f"Current K/D for {name}: {KD:.2f}")
 
-    winrate = (stats[name]["wins"] / (stats[name]["losses"]) * 100) if (stats[name]["wins"] + stats[name]["losses"]) > 0 else 0
-    print(f"Current winrate for {name}: {winrate:.2f}%")
+    total_games = stats[name]["wins"] + stats[name]["losses"]
+    winrate = (stats[name]["wins"] / total_games * 100) if total_games > 0 else 0
+    # Added W-L record to the output for more clarity
+    print(f"Current winrate for {name}: {winrate:.2f}% ({stats[name]['wins']}W-{stats[name]['losses']}L)")
 
 
     with open("stats.json", "w") as f:
