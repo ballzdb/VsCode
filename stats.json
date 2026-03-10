@@ -1,7 +1,9 @@
 {
     "Hibana": {
-        "wins": 7,
-        "losses": 0
+        "wins": 8,
+        "losses": 0,
+        "kills": 1,
+        "deaths": 0
     },
     "Fuze": {
         "wins": 1,

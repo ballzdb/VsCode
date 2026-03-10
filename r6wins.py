@@ -1,5 +1,8 @@
 import json
 
+import csv
+
+
 stats = {}
 
 class Operator:
@@ -140,6 +143,26 @@ def input_kills_and_deaths():
             print("\nExiting kill/death input. Returning to main menu.")
             return None, None
 
+def csv_create():
+    with open("stats.json", "r") as f:
+        stats = json.load(f)
+
+    with open("stats.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Operator", "Wins", "Losses", "Kills", "Deaths", "Win Rate %", "K/D"])
+        
+        for operator, record in sorted(stats.items()):
+            wins = record.get("wins", 0)
+            losses = record.get("losses", 0)
+            kills = record.get("kills", 0)
+            deaths = record.get("deaths", 0)
+            total = wins + losses
+            win_rate = round((wins / total) * 100, 2) if total > 0 else 0
+            kd = round(kills / deaths, 2) if deaths > 0 else float(kills)
+            writer.writerow([operator, wins, losses, kills, deaths, win_rate, kd])
+
+    print("Done! stats.csv created.")
+
 
 if __name__ == "__main__": #main loop of the program that does everything
     try:
@@ -154,5 +177,6 @@ if __name__ == "__main__": #main loop of the program that does everything
             print(e)
         except KeyboardInterrupt:
             display_statistics()
+            csv_create()
             print("Exiting program. Goodbye!")
             exit()
