@@ -125,9 +125,14 @@ def input_kills_and_deaths():
         try:
             kills = int(input("Number of kills: ").strip())
             deaths = int(input("Number of deaths: ").strip())
+            if deaths > 1:
+                raise ValueError("Deaths cannot be greater than 1 for a single round.")
+            if kills > 5:
+                raise ValueError("Kills cannot be greater than 5 for a single round.")
             if kills < 0 or deaths < 0:
                 raise ValueError("Kills and deaths cannot be negative.")
             return kills, deaths
+            
         except ValueError as e:
             print(e)
             continue
